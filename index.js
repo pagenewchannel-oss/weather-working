@@ -1,38 +1,38 @@
 import { getContext } from "../../../extensions.js";
 import { eventSource, event_types } from "../../../../script.js";
 
-const extensionName = "Weather Effects Public Fix";
+const extensionName = "Weather Effects";
 
-// Пути изменены! Файлы должны лежать строго внутри папки 'public' в корне Таверны.
-// Таверна отдает файлы из public, если указать прямой путь.
+const BASE_PATH = "/scripts/extensions/third-party/weather-working/img/";
+
 const EFFECTS = {
     "sunny": {
-        url: 'sunny.gif', // Теперь браузер будет искать их относительно текущего адреса
+        url: BASE_PATH + 'sunny.gif',
         opacity: '0.15',
         triggers: ["солнышко", "солнце", "ясно", "светло", "день"]
     },
     "room": {
-        url: 'room.gif',
+        url: BASE_PATH + 'room.gif',
         opacity: '0.2',
         triggers: ["комната", "дом", "спальня", "внутри", "помещение"]
     },
     "rain": {
-        url: 'rain.gif',
+        url: BASE_PATH + 'rain.gif',
         opacity: '0.15',
         triggers: ["дождь", "ливень", "гроза", "осадки", "капли"]
     },
     "nightorspace": {
-        url: 'nightorspace.gif',
+        url: BASE_PATH + 'nightorspace.gif',
         opacity: '0.2',
         triggers: ["космос", "космосс", "ночь", "звезды", "темнота", "мрак"]
     },
     "fog": {
-        url: 'fog.gif',
+        url: BASE_PATH + 'fog.gif',
         opacity: '0.15',
         triggers: ["туман", "дымка", "мгла", "пасмурно", "смог"]
     },
     "dystopia": {
-        url: 'dystopia.gif',
+        url: BASE_PATH + 'dystopia.gif',
         opacity: '0.2',
         triggers: ["антиутопия", "киберпанк", "неон", "город", "грязь"]
     }
@@ -43,9 +43,6 @@ let currentEffectKey = null;
 let messageCount = 0;
 
 async function initialize() {
-    console.log(`${extensionName} initialized`);
-    alert("Код загрузился! ПЕРЕЛОЖИ ГИФКИ В ПАПКУ public!");
-
     eventSource.on(event_types.USER_MESSAGE_RENDERED, (messageId) => {
         const context = getContext();
         const chat = context.chat;
@@ -64,7 +61,6 @@ async function initialize() {
             }
         }
 
-        let effectFound = false;
         for (const [effectKey, effectData] of Object.entries(EFFECTS)) {
             const hasTrigger = effectData.triggers.some(trigger => lastMessageText.includes(trigger));
 
@@ -72,7 +68,6 @@ async function initialize() {
                 if (currentEffectKey !== effectKey) {
                     startEffect(effectKey, effectData);
                 }
-                effectFound = true;
                 break;
             }
         }
