@@ -6,36 +6,12 @@ const extensionName = "Weather Effects";
 const BASE_PATH = "/scripts/extensions/third-party/weather-working/img/";
 
 const EFFECTS = {
-    "sunny": {
-        url: BASE_PATH + 'sunny.gif',
-        opacity: '0.15',
-        triggers: ["солнышко", "солнце", "ясно", "светло", "день"]
-    },
-    "room": {
-        url: BASE_PATH + 'room.gif',
-        opacity: '0.2',
-        triggers: ["комната", "дом", "спальня", "внутри", "помещение"]
-    },
-    "rain": {
-        url: BASE_PATH + 'rain.gif',
-        opacity: '0.15',
-        triggers: ["дождь", "ливень", "гроза", "осадки", "капли"]
-    },
-    "nightorspace": {
-        url: BASE_PATH + 'nightorspace.gif',
-        opacity: '0.2',
-        triggers: ["космос", "космосс", "ночь", "звезды", "темнота", "мрак"]
-    },
-    "fog": {
-        url: BASE_PATH + 'fog.gif',
-        opacity: '0.15',
-        triggers: ["туман", "дымка", "мгла", "пасмурно", "смог"]
-    },
-    "dystopia": {
-        url: BASE_PATH + 'dystopia.gif',
-        opacity: '0.2',
-        triggers: ["антиутопия", "киберпанк", "неон", "город", "грязь"]
-    }
+    "sunny": { url: BASE_PATH + 'sunny.gif', opacity: '0.15', triggers: ["солнышко", "солнце", "ясно", "светло", "день"] },
+    "room": { url: BASE_PATH + 'room.gif', opacity: '0.2', triggers: ["комната", "дом", "спальня", "внутри", "помещение"] },
+    "rain": { url: BASE_PATH + 'rain.gif', opacity: '0.15', triggers: ["дождь", "ливень", "гроза", "осадки", "капли"] },
+    "nightorspace": { url: BASE_PATH + 'nightorspace.gif', opacity: '0.2', triggers: ["космос", "космосс", "ночь", "звезды", "темнота", "мрак"] },
+    "fog": { url: BASE_PATH + 'fog.gif', opacity: '0.15', triggers: ["туман", "дымка", "мгла", "пасмурно", "смог"] },
+    "dystopia": { url: BASE_PATH + 'dystopia.gif', opacity: '0.2', triggers: ["антиутопия", "киберпанк", "неон", "город", "грязь"] }
 };
 
 let currentOverlay = null;
@@ -43,6 +19,8 @@ let currentEffectKey = null;
 let messageCount = 0;
 
 async function initialize() {
+    console.log(`${extensionName} loaded successfully from third-party folder.`);
+
     eventSource.on(event_types.USER_MESSAGE_RENDERED, (messageId) => {
         const context = getContext();
         const chat = context.chat;
